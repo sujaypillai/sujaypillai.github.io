@@ -117,4 +117,4 @@ This should make the Hashable aspect visible in the list of aspects available to
 </bean>
 {% endhighlight %}
 
-##### The complete source code for this examples is available on [GitHub](https://github.com/sujaypillai/alfchecksum).
+##### The complete source code for this example is available on [GitHub](https://github.com/sujaypillai/alfchecksum).
