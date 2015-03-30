@@ -116,3 +116,5 @@ This should make the Hashable aspect visible in the list of aspects available to
 <bean id="evaluator.doclib.indicator.hashable" class="org.ootb.web.evaluator.doclib.indicator.ChecksumEvaluator">
 </bean>
 {% endhighlight %}
+
+#### The complete source code for these examples is available on [GitHub](https://github.com/sujaypillai/alfchecksum).
