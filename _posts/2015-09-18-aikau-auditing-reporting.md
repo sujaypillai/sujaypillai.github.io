@@ -9,14 +9,13 @@ Below is a screenshot of how it looked -
 ![Alfresco Explorer Audit Trail]({{ site.baseurl }}/img/audit-example-explorer.jpg)
 
 But there is no such option in Alfresco Share to view those audit data, so I thought of building it. Auditing is by default enabled in Alfresco but the data generation for the same is disabled and to enable this you would have to put in the below property in alfresco-global.properties.
-{% highlight bash %}
-    audit.alfresco-access.enabled=true
-{% endhighlight %}
+
+    `audit.alfresco-access.enabled=true`
 
 You can check the status for auditing by issuing the command:
-{% highlight bash %}
-    curl -u admin:password "http://localhost:8080/alfresco/service/api/audit/control" 
-{% endhighlight %}
+
+    `curl -u admin:password "http://localhost:8080/alfresco/service/api/audit/control"``
+
 On issuing the above command you would get a JSON response something similar -
 {% highlight json %}
     {
@@ -36,10 +35,8 @@ On issuing the above command you would get a JSON response something similar -
           }
              
        ]
-    }
+}
 {% endhighlight %}
-
-
 
 If you looking for more information about Alfresco Audting you should definitely look [here](http://docs.alfresco.com/5.0/concepts/audit-intro.html)
 
