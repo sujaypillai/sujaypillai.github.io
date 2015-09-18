@@ -5,7 +5,114 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>/</link>
     <description>Sujay Pillai&#39;s blog site</description>
-    <pubDate>Fri, 18 Sep 2015 23:46:49 +0800</pubDate>
+    <pubDate>Sat, 19 Sep 2015 00:56:24 +0800</pubDate>
+    
+      <item>
+        <title>Aikau Audit Report</title>
+        <link>/2015/09/18/aikau-auditing-reporting.html</link>
+        <guid isPermaLink="true">/2015/09/18/aikau-auditing-reporting.html</guid>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://eisenvault.com&quot;&gt;EisenVault&lt;/a&gt; takes away the hassle of managing documents by storing them in both electronic and physical forms, enabling smart-search and deploying quick retrieval measures. Our innovative cloud-based document management system can be used in multiple industry sectors, and caters to specific requirements of various job roles. Our vision - to be your preferred partner for electronic and physical document management.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is &lt;a href=&quot;https://eisenvault.com&quot;&gt;EisenVault’s&lt;/a&gt; first Aikau plugin and we would like to share our experience building it. While during the days when people used Alfresco Explorer there was an option to view the audit trail for a document using the show_audit.ftl by selecting &lt;strong&gt;&lt;em&gt;“Preview in Template”&lt;/em&gt;&lt;/strong&gt;.
+Below is a screenshot of how it looked -&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/audit-example-explorer.jpg&quot; alt=&quot;Alfresco Explorer Audit Trail&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;But there is no such option in Alfresco Share to view those audit data, so I thought of building it. Auditing is by default enabled in Alfresco but the data generation for the same is disabled and to enable this you would have to put in the below property in alfresco-global.properties.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-properties&quot; data-lang=&quot;properties&quot;&gt;&lt;span class=&quot;na&quot;&gt;audit.alfresco-access.enabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can check the status for auditing by issuing the command:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;go&quot;&gt;curl -u admin:password &amp;quot;http://localhost:8080/alfresco/service/api/audit/control&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;On issuing the above command you would get a JSON response something similar -&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;quot;enabled&amp;quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;quot;applications&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; 
+       &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Alfresco Tagging Service&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;quot;path&amp;quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/tagging&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;quot;enabled&amp;quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+             &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;alfresco-access&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;quot;path&amp;quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/alfresco-access&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;quot;enabled&amp;quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+             
+       &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can also query to retrieve the audit events:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;go&quot;&gt;curl -u admin:password &amp;quot;http://localhost:8080/alfresco/service/api/audit/query/alfresco-access?limit=2&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;quot;count&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;quot;entries&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; 
+   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;quot;id&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;quot;application&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;alfresco-access&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;quot;user&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;admin&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;quot;time&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;2015-09-16T13:48:08.796+08:00&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;quot;values&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;quot;id&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;quot;application&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;alfresco-access&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;quot;user&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;admin&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;quot;time&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;2015-09-16T13:48:09.560+08:00&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;quot;values&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;&lt;em&gt;If you looking for more information about Alfresco Audting you should definitely look &lt;a href=&quot;http://docs.alfresco.com/5.0/concepts/audit-intro.html&quot;&gt;here&lt;/a&gt;&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;aikau-audit-report-page&quot;&gt;Aikau Audit Report page&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The new Aikau Audit report page lets you view the audit trail for each document in the repository as shown below:&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/img/aikau-audit-report.png&quot; alt=&quot;Aikau Audit Report&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;You can access this page either from the document library action OR from the Document Actions section from the document details page:&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;img src=&quot;/img/aar-dl.png&quot; alt=&quot;DL&quot; /&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;img src=&quot;/img/aar-da.png&quot; alt=&quot;DA&quot; /&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;how-does-it-work&quot;&gt;How does it work?&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;The &lt;a href=&quot;http://dev.alfresco.com/resource/docs/aikau-jsdoc/AlfList.html&quot;&gt;AlfList&lt;/a&gt; widget makes a call to webscript &lt;a href=&quot;https://github.com/vipulswarup/ev-aikau-auditreport/blob/master/ev-repo/src/main/java/com/eisenvault/webscript/NodeAuditTrailWebScript.java&quot;&gt;NodeAuditTrailWebScript&lt;/a&gt; with help of the attribute &lt;strong&gt;&lt;em&gt;loadDataPublishTopic&lt;/em&gt;&lt;/strong&gt; via the CrudService (using the “&lt;strong&gt;ALF_CRUD_GET_ALL&lt;/strong&gt;” topic) which take the nodeRef as a parameter and this in turn returns the data in JSON format.&lt;/li&gt;
+  &lt;li&gt;Now to render the list what AlfList loads we need to create a view which is done with the help of &lt;a href=&quot;http://dev.alfresco.com/resource/docs/aikau-jsdoc/AlfListView.html&quot;&gt;AlfListView&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;As the list contains five columns we would be adding same number of &lt;a href=&quot;http://dev.alfresco.com/resource/docs/aikau-jsdoc/HeaderCell.html&quot;&gt;HeaderCell&lt;/a&gt; for the attribute &lt;strong&gt;&lt;em&gt;widgetsForHeader&lt;/em&gt;&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Each row in the data will be represented by &lt;a href=&quot;http://dev.alfresco.com/resource/docs/aikau-jsdoc/Row.html&quot;&gt;Row&lt;/a&gt; and each &lt;a href=&quot;http://dev.alfresco.com/resource/docs/aikau-jsdoc/Cell.html&quot;&gt;Cell&lt;/a&gt; will hold &lt;a href=&quot;http://dev.alfresco.com/resource/docs/aikau-jsdoc/Property.html&quot;&gt;Property&lt;/a&gt; to render the value for respective &lt;strong&gt;&lt;em&gt;Cell&lt;/em&gt;&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;As the last column “&lt;strong&gt;Audit Entry Values&lt;/strong&gt;” holds multiple values the &lt;strong&gt;&lt;em&gt;Property&lt;/em&gt;&lt;/strong&gt; widget need to be overridden and you may find this in &lt;a href=&quot;https://github.com/vipulswarup/ev-aikau-auditreport/blob/master/ev-share/src/main/amp/web/js/eisenvault/widgets/Property.js&quot;&gt;Property.js&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;** You may find the complete source code for this addon on &lt;a href=&quot;https://github.com/vipulswarup/ev-aikau-auditreport&quot;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 18 Sep 2015 00:00:00 +0800</pubDate>
+      </item>
     
       <item>
         <title>Aikau Audit Report</title>
