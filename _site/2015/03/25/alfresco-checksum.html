@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>Generating Checksums for Alfresco Content | Sujay Pillai</title>
+	<meta name="description" content="  Inspired from Chris Paul’s blog and work">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-Frame-Options" content="sameorigin">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/2015/03/25/alfresco-checksum.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Sujay Pillai" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+
+  <!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.1.1/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.1.1/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-65644221-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <body>
+    <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/img/sop.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">Sujay Pillai</a>
+		</h1>
+	</div>
+	<nav class="site-nav">
+		<ul>
+			
+			
+			
+			
+			<li>
+				<a class="page-link" href="/about/">
+					About
+				</a>
+			</li>
+			
+			
+			
+			
+			
+			
+			
+			
+			<!-- Social icons from Font Awesome, if enabled -->
+			
+
+
+<li>
+	<a href="mailto:sujayopillai@gmail.com" title="Email">
+		<i class="fa fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/sujaypillai" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.linkedin.com/in/sujaypillai" title="Follow on LinkedIn">
+		<i class="fa fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/sujaypillai" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+		</ul>
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">Generating Checksums for Alfresco Content</h1>
+    <p class="meta">
+    March 25, 2015
+    
+    </p>
+  </header>
+  <section class="post-content"><blockquote>
+  <p><strong><em>Inspired from Chris Paul’s <a href="http://blog.productivist.com/2011/11/21/generate-checksums-for-alfresco-content/">blog</a> and <a href="https://github.com/cmpaul/hashable">work</a></em></strong></p>
+</blockquote>
+
+<p>I was reading about <a href="https://wiki.alfresco.com/wiki/Projects_and_Teams_Global_Virtual_Hack-a-thon_2015">Alfresco Global Virtual Hack-a-thon</a> scheduled to be on 17th April 2015 and going through the list of Projects came across - <em>Document Checksuming and display in Share.</em> My bookmark’s collection had Chris’s blog and thought of bootstrapping myself for hackathon by rewriting the whole work done by Chris using Alfresco SDK 2.0 on 5.0.c.</p>
+
+<p>Below are the brief details about my approach:</p>
+
+<ul>
+  <li>
+    <p>Create an empty directory which will hold both the repository tier &amp; share amp archetypes.</p>
+  </li>
+  <li>
+    <p>Navigate into the above created folder and issue the below command:</p>
+  </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">mvn</span> <span class="nl">archetype:</span><span class="n">generate</span> <span class="o">-</span><span class="n">Dfilter</span><span class="o">=</span><span class="n">org</span><span class="o">.</span><span class="na">alfresco</span><span class="o">.</span><span class="na">maven</span><span class="o">.</span><span class="na">archetype</span><span class="o">:</span></code></pre></div>
+
+<ul>
+  <li>You will be prompted to choose an archetype</li>
+</ul>
+
+<p><img src="/img/img1.png" alt="MyImage" /></p>
+
+<ul>
+  <li>Enter <strong>2</strong> to create an AMP project for repository tier.</li>
+  <li>For org.alfresco.maven.archetype:alfresco-amp-archetype version: choose value as <strong>5</strong> for selecting an archetype version of <strong>2.0.0</strong>.</li>
+  <li>Enter value for property ‘groupId’ as <strong>org.ootb</strong></li>
+  <li>Enter value for property ‘artifactId’ as <strong>chksum-repo</strong></li>
+  <li>The next step would confirm with all the properties set by you and if you are satisfied with it enter <strong>Y</strong> to create the project.</li>
+  <li>Repeat the above procedure for creating a share amp project.</li>
+  <li>
+    <p>Once you have both the projects created import them into eclipse.
+ <img src="/img/img2.png" alt="Eclipse Project Structure after import" /></p>
+  </li>
+  <li>On the <strong>chksum-repo</strong> (repository amp) side I haven’t made any changes except that the below class where the name has been changed from HashableModel to ChecksumModel and the namespace url and prefix referring to <a href="http://orderofthebee.org/">OrderOfTheBee</a></li>
+</ul>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="n">org</span><span class="o">.</span><span class="na">ootb</span><span class="o">.</span><span class="na">model</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.alfresco.service.namespace.QName</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ChecksumModel</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHKSUM_MODEL_URI</span>    <span class="o">=</span> <span class="s">&quot;http://orderofthebee.org/model/checksum/1.0&quot;</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHKSUM_MODEL_PREFIX</span> <span class="o">=</span> <span class="s">&quot;ootb&quot;</span><span class="o">;</span>
+    
+    <span class="kd">static</span> <span class="kd">final</span> <span class="n">QName</span> <span class="n">ASPECT_HASHABLE</span> <span class="o">=</span> <span class="n">QName</span><span class="o">.</span><span class="na">createQName</span><span class="o">(</span><span class="n">CHKSUM_MODEL_URI</span><span class="o">,</span> <span class="s">&quot;hashable&quot;</span><span class="o">);</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="n">QName</span> <span class="n">PROP_HASHTYPE</span>   <span class="o">=</span> <span class="n">QName</span><span class="o">.</span><span class="na">createQName</span><span class="o">(</span><span class="n">CHKSUM_MODEL_URI</span><span class="o">,</span> <span class="s">&quot;hashType&quot;</span><span class="o">);</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="n">QName</span> <span class="n">PROP_HASHVALUE</span>  <span class="o">=</span> <span class="n">QName</span><span class="o">.</span><span class="na">createQName</span><span class="o">(</span><span class="n">CHKSUM_MODEL_URI</span><span class="o">,</span> <span class="s">&quot;hashValue&quot;</span><span class="o">);</span>
+<span class="o">}</span></code></pre></div>
+
+<ul>
+  <li>On the Share side to make the aspect visible to the user add the below part in share-config-custom.xml</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">config</span> <span class="n">evaluator</span><span class="o">=</span><span class="s">&quot;string-compare&quot;</span> <span class="n">condition</span><span class="o">=</span><span class="s">&quot;DocumentLibrary&quot;</span> <span class="n">replace</span><span class="o">=</span><span class="s">&quot;true&quot;</span><span class="o">&gt;</span>
+ <span class="o">&lt;</span><span class="n">aspects</span><span class="o">&gt;</span>
+     <span class="o">&lt;!--</span> <span class="n">Aspects</span> <span class="n">that</span> <span class="n">a</span> <span class="n">user</span> <span class="n">can</span> <span class="n">see</span> <span class="o">--&gt;</span>
+     <span class="o">&lt;</span><span class="n">visible</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">aspect</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;ootb:hashable&quot;</span> <span class="o">/&gt;</span>
+     <span class="o">&lt;/</span><span class="n">visible</span><span class="o">&gt;</span>
+ <span class="o">&lt;/</span><span class="n">aspects</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">config</span><span class="o">&gt;</span></code></pre></div>
+
+<p>This should make the Hashable aspect visible in the list of aspects available to add when the user clicks on “Manage Aspects” from document-actions.
+<img src="/img/img3.png" alt="Manage Aspects" /></p>
+
+<ul>
+  <li>By default in the above screen it would display the aspect name as <strong><em>aspect.ootb_hashable</em></strong> and to add a meaningful value to it add the following bean:</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">bean</span> <span class="n">id</span><span class="o">=</span><span class="s">&quot;ootb.custom.resources&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s">&quot;org.springframework.extensions.surf.util.ResourceBundleBootstrapComponent&quot;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">property</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;resourceBundles&quot;</span><span class="o">&gt;</span>
+     <span class="o">&lt;</span><span class="n">list</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="n">alfresco</span><span class="o">.</span><span class="na">module</span><span class="o">.</span><span class="na">$</span><span class="o">{</span><span class="n">project</span><span class="o">.</span><span class="na">artifactId</span><span class="o">}.</span><span class="na">messages</span><span class="o">.</span><span class="na">chksum</span><span class="o">&lt;/</span><span class="n">value</span><span class="o">&gt;</span>
+     <span class="o">&lt;/</span><span class="n">list</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">property</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">bean</span><span class="o">&gt;</span></code></pre></div>
+
+<ul>
+  <li>In chksum.properties file add the below line:</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">aspect</span><span class="o">.</span><span class="na">ootb_hashable</span><span class="o">=</span><span class="n">Hashable</span></code></pre></div>
+
+<ul>
+  <li>
+    <p>Once you add the Hashable aspect to a document the policy handler would calculate the checksum <strong><em>(ootb:hashValue)</em></strong>  by default using <strong><em>(ootb:hashType)</em></strong> as <strong>MD5</strong> as shown below:
+<img src="/img/img4.png" alt="Checksum value" /></p>
+  </li>
+  <li>
+    <p>To display the checksum value on properties page you need to add the following in share-config-custom.xml:</p>
+  </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">&lt;!--</span> <span class="n">Display</span> <span class="n">the</span> <span class="n">Hashable</span> <span class="n">properties</span> <span class="o">--&gt;</span>
+<span class="o">&lt;</span><span class="n">config</span> <span class="n">evaluator</span><span class="o">=</span><span class="s">&quot;node-type&quot;</span> <span class="n">condition</span><span class="o">=</span><span class="s">&quot;cm:content&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">forms</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">form</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">field</span><span class="o">-</span><span class="n">visibility</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">show</span> <span class="n">id</span><span class="o">=</span><span class="s">&quot;ootb:hashType&quot;</span> <span class="o">/&gt;</span>
+                <span class="o">&lt;</span><span class="n">show</span> <span class="n">id</span><span class="o">=</span><span class="s">&quot;ootb:hashValue&quot;</span> <span class="o">/&gt;</span>
+            <span class="o">&lt;/</span><span class="n">field</span><span class="o">-</span><span class="n">visibility</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">appearance</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">field</span> <span class="n">id</span><span class="o">=</span><span class="s">&quot;ootb:hashValue&quot;</span> <span class="n">read</span><span class="o">-</span><span class="n">only</span><span class="o">=</span><span class="s">&quot;true&quot;</span> <span class="o">/&gt;</span>
+            <span class="o">&lt;/</span><span class="n">appearance</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">forms</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">config</span><span class="o">&gt;</span></code></pre></div>
+
+<ul>
+  <li><strong>Status Indicator:</strong></li>
+</ul>
+
+<blockquote>
+  <ul>
+    <li>Defined within the <strong>DocumentLibrary</strong> config section, status indicators are small icons typically used to indicate the presence of an aspect.</li>
+    <li>Indicator images are by default reference by id: <strong><em>/res/components/documentlibrary/indicators/{id}-16.png</em></strong> unless the name is overridden by the “icon” attribute.</li>
+  </ul>
+</blockquote>
+
+<ul>
+  <li>
+    <p>As shown below any content which has an aspect <strong><em>oot:hashable</em></strong> applied to it (has a checksum value calculated) then it shows the icon “H”
+<img src="/img/img5.png" alt="Status indicator" /></p>
+  </li>
+  <li>
+    <p>This is achieved by adding the following code snippet in share-config-custom.xml:</p>
+  </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">indicators</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">indicator</span> <span class="n">id</span><span class="o">=</span><span class="s">&quot;hashable&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s">&quot;10&quot;</span> <span class="n">icon</span><span class="o">=</span><span class="s">&quot;hashable-16.png&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">evaluator</span><span class="o">&gt;</span><span class="n">evaluator</span><span class="o">.</span><span class="na">doclib</span><span class="o">.</span><span class="na">indicator</span><span class="o">.</span><span class="na">hashable</span><span class="o">&lt;/</span><span class="n">evaluator</span><span class="o">&gt;</span>
+ <span class="o">&lt;/</span><span class="n">indicator</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">indicators</span><span class="o">&gt;</span></code></pre></div>
+
+<ul>
+  <li>The evaluator <strong><em>evaluator.doclib.indicator.hashable</em></strong> helps to identify whether a node has an aspect <strong><em>oot:hashable</em></strong> and is defined in the bean</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;evaluator.doclib.indicator.hashable&quot;</span> <span class="na">class=</span><span class="s">&quot;org.ootb.web.evaluator.doclib.indicator.ChecksumEvaluator&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/bean&gt;</span></code></pre></div>
+
+<h5 id="the-complete-source-code-for-this-example-is-available-on-githubhttpsgithubcomsujaypillaialfchecksum">The complete source code for this example is available on <a href="https://github.com/sujaypillai/alfchecksum">GitHub</a>.</h5>
+</section>
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'sujaypillai';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+    </div>
+    <script src="/js/main.js"></script>
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="http://jekyllrb.com">Jekyll</a> with <a href="https://rohanchandra.github.io/project/type/">Type Theme</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

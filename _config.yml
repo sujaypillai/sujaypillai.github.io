@@ -43,7 +43,7 @@ theme:
   youtube:
 
   # Scripts
-  google_analytics: # Tracking ID, e.g. "UA-000000-01"
+  google_analytics: "UA-65644221-1"
   disqus_shortname: "sujaypillai"
   katex: true # Enable if using math markup
 
@@ -69,3 +69,11 @@ highlighter: pygments
 sass:
   sass_dir: _sass
   style: :compressed
+
+coderay:
+  coderay_wrap:              div
+  coderay_line_numbers:      inline
+  coderay_line_number_start: 1
+  coderay_tab_width:         4
+  coderay_bold_every:        10
+  coderay_css:               style
