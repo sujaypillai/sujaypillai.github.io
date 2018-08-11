@@ -27,3 +27,5 @@ coderay:
   coderay_css:               style
 
 #gems: [jekyll_test_plugin, jekyll-json, jekyll-assets]
+
+theme: jekyll-theme-cayman
