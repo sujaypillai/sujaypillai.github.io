@@ -4,7 +4,7 @@ url: "" # the base hostname & protocol for your site
 imagefolder: "/img/"
 
 # THEME-SPECIFIC CONFIGURATION
-remote_theme: poole/hyde
+remote_theme: hyde
 
 # PAGINATION
 paginate: 5
