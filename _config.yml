@@ -4,7 +4,7 @@ url: "" # the base hostname & protocol for your site
 imagefolder: "/img/"
 
 # THEME-SPECIFIC CONFIGURATION
-remote_theme: hyde
+remote_theme: poole/hyde
 
 # PAGINATION
 paginate: 5
@@ -28,4 +28,4 @@ coderay:
 
 #gems: [jekyll_test_plugin, jekyll-json, jekyll-assets]
 
-theme: jekyll-theme-cayman
+theme: jekyll-theme-hyde
