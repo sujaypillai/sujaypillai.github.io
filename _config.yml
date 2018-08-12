@@ -1,31 +1,47 @@
-# SITE CONFIGURATION
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "" # the base hostname & protocol for your site
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Sujay Pillai
+email: sujayopillai@gmail.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "http://localhost:8082" # the base hostname & protocol for your site, e.g. http://example.com
 imagefolder: "/img/"
+twitter_username: sujaypillai
+github_username:  sujaypillai
 
-# THEME-SPECIFIC CONFIGURATION
-remote_theme: poole/hyde
-
-# PAGINATION
-paginate: 5
-paginate_path: "blog/page:num"
-
-# BUILD SETTINGS
+# Build settings
 markdown: kramdown
-highlighter: pygments
-#highlighter: rouge
-sass:
-  sass_dir: _sass
-  style: :compressed
-
-coderay:
-  coderay_wrap:              div
-  coderay_line_numbers:      inline
-  coderay_line_number_start: 1
-  coderay_tab_width:         4
-  coderay_bold_every:        10
-  coderay_css:               style
-
-#gems: [jekyll_test_plugin, jekyll-json, jekyll-assets]
-
 theme: jekyll-theme-hyde
+plugins:
+  - jekyll-feed
+  - jekyll-gist
+  - jekyll-paginate-v2
+
+#paginate: 5
+pagination:
+  enabled: true
+  per_page: 3
+  permalink: '/page/:num/'
+  limit: 0
+  sort_field: 'date'
+  sort_reverse: true
+# We specify the directory for Jekyll so we can use @imports.
+sass:
+  sass_dir:          _sass
+  style:            compressed
