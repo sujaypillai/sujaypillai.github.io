@@ -11,7 +11,7 @@
   
     <title>
       
-        Sujay Pillai &middot; Sujay Pillai
+        Downgrading AMP version in Alfresco &middot; Sujay Pillai
       
     </title>
   
@@ -82,70 +82,10 @@
   </div>
 
     <div class="content container">
-      <div class="posts">
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2018/05/06/docker-tip.html">
-        Switch between Linux and Windows Container on D4W
-      </a>
-    </h1>
-
-    <span class="post-date">06 May 2018</span>
-
-    <p>If you are using Docker for Windows there might be a need to switch between Linux OR Windows container at times.</p>
-
-<p>The first way to achieve this is to right click on the whale icon from the system tray and choose either the option “Switch to Linux Containers…” OR “Switch to Windows Containers…”</p>
-
-<p><img src="http://0.0.0.0:4000/img/systemtray.png" alt="SystemTray" /></p>
-
-<p>The other way to achieve this from the CMD/Powershell is to execute the below command:</p>
-
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">        &amp; 'C:\Program Files\Docker\Docker\DockerCli.exe' -SwitchDaemon</span></code></pre></figure>
-
-<p><img src="http://0.0.0.0:4000/img/powershell1.png" alt="PowershellCommand" /></p>
-
-<blockquote>
-  <p><strong><em>There is a running process “com.docker.proxy.exe” which listens on the default named pipe : \.\pipe\docker_engine [for linux containers].</em></strong></p>
-</blockquote>
-
-<blockquote>
-  <p><strong><em>If you switch from Linux to Windows container the Windows Docker engine “dockerd.exe” will be started for you which listens on \.\pipe\docker_engine_windows &amp; the above proxy process redirects to this.</em></strong></p>
-</blockquote>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2018/04/13/docker-tip.html">
-        Switch ORCHESTRATOR on D4W
-      </a>
-    </h1>
-
-    <span class="post-date">13 Apr 2018</span>
-
-    <p>If you are using latest Docker for Windows 18.02 CE Edge or higher it comes by default Docker Orchestrator as “Kubernetes”. For me at the time of writing this post I don’t see an option to switch it to Docker Swarm from the Settings menu.</p>
-
-<p><img src="http://0.0.0.0:4000/img/dockerdaemonsettings.png" alt="SystemTray" /></p>
-
-<p>If you ever need to change the Orchestrator to Swarm/Kubernetes you may set the environment variable <strong>DOCKER_ORCHESTRATOR</strong> to appropriate value as shown below</p>
-
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">        set DOCKER_ORCHESTRATOR=swarm</span></code></pre></figure>
-
-<p><img src="http://0.0.0.0:4000/img/switchdockerorchestrator.png" alt="PowershellCommand" /></p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2016/08/04/update-amp-version.html">
-        Downgrading AMP version in Alfresco
-      </a>
-    </h1>
-
-    <span class="post-date">04 Aug 2016</span>
-
-    <p>If you ever tried to downgrade an AMP version in Alfresco you should have seen an error something similar:</p>
+      <div class="post">
+  <h1 class="post-title">Downgrading AMP version in Alfresco</h1>
+  <span class="post-date">04 Aug 2016</span>
+  <p>If you ever tried to downgrade an AMP version in Alfresco you should have seen an error something similar:</p>
 <div class="note warning">
 <p>Caused by: org.alfresco.error.AlfrescoRuntimeException: 02100002</p>
   <p>
@@ -210,17 +150,40 @@
 <span class="k">SET</span> <span class="n">alf_node_properties</span><span class="p">.</span><span class="n">string_value</span> <span class="o">=</span> <span class="nv">"1.0.0"</span>
 <span class="k">WHERE</span> <span class="n">alf_namespace</span><span class="p">.</span><span class="n">uri</span><span class="o">=</span><span class="nv">"http://www.alfresco.org/system/modules/1.0"</span> <span class="k">AND</span> <span class="n">alf_qname</span><span class="p">.</span><span class="n">local_name</span> <span class="o">=</span> <span class="nv">"currentVersion"</span> <span class="k">AND</span> <span class="n">string_value</span> <span class="o">=</span> <span class="nv">"1.0.1"</span><span class="p">;</span></code></pre></figure>
 
-  </div>
-  
 </div>
 
-<div class="pagination">
-  
-    <a class="pagination-item older" href="/page/2">Older</a>
-  
-  
-    <span class="pagination-item newer">Newer</span>
-  
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2018/05/06/docker-tip.html">
+            Switch between Linux and Windows Container on D4W
+            <small>06 May 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/04/13/docker-tip.html">
+            Switch ORCHESTRATOR on D4W
+            <small>13 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/09/18/aikau-auditing-reporting.html">
+            Aikau Audit Report
+            <small>18 Sep 2015</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
 </div>
     </div>
 

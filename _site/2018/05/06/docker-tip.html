@@ -11,7 +11,7 @@
   
     <title>
       
-        Alfresco Tech Talk Live 85 - Global Virtual Hack-a-thon Project Demos &middot; Sujay Pillai
+        Switch between Linux and Windows Container on D4W &middot; Sujay Pillai
       
     </title>
   
@@ -83,78 +83,33 @@
 
     <div class="content container">
       <div class="post">
-  <h1 class="post-title">Alfresco Tech Talk Live 85 - Global Virtual Hack-a-thon Project Demos</h1>
-  <span class="post-date">06 May 2015</span>
-  <p>After the <a href="https://wiki.alfresco.com/wiki/Projects_and_Teams_Global_Virtual_Hack-a-thon_2015">Global Virtual Hack-a-thon 2015</a> which was held on April 17, 2015 I was lucky enough to be on the panel list to demo the project what I worked on. Thanks <a href="https://twitter.com/esplinr">Richard Esplin</a> &amp; <a href="https://twitter.com/OleHejlskov">Ole Hejlskov</a>!!!</p>
+  <h1 class="post-title">Switch between Linux and Windows Container on D4W</h1>
+  <span class="post-date">06 May 2018</span>
+  <p>If you are using Docker for Windows there might be a need to switch between Linux OR Windows container at times.</p>
 
-<h5 id="the-panel-included">The panel included:</h5>
+<p>The first way to achieve this is to right click on the whale icon from the system tray and choose either the option “Switch to Linux Containers…” OR “Switch to Windows Containers…”</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Member</th>
-      <th>Project</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Richard Esplin</td>
-      <td>Migrating Alfresco addons hosted on Google to Github</td>
-    </tr>
-    <tr>
-      <td>Ole Hejlskov</td>
-      <td>Aikau Samples / SDK Samples</td>
-    </tr>
-    <tr>
-      <td>Borris Mejias</td>
-      <td>The Outside Agent: Managing multiple Alfresco instances</td>
-    </tr>
-    <tr>
-      <td>Angel Borroy</td>
-      <td>Folder Quotas</td>
-    </tr>
-    <tr>
-      <td>Sujay Pillai</td>
-      <td>Update Jeff’s Five Star Ratings Add-On</td>
-    </tr>
-    <tr>
-      <td>Bindu Wavell</td>
-      <td>Alfresco Yeoman Generator</td>
-    </tr>
-    <tr>
-      <td>Axel Faust</td>
-      <td>Build a ‘CMIS Server’ distribution of Alfresco</td>
-    </tr>
-    <tr>
-      <td>Martin Cosgrave</td>
-      <td>Data visualization</td>
-    </tr>
-  </tbody>
-</table>
+<p><img src="http://0.0.0.0:4000/img/systemtray.png" alt="SystemTray" /></p>
 
-<p>The Tech Talk Live this month was dedicated to review different projects which were carried out during Hackathon.</p>
+<p>The other way to achieve this from the CMD/Powershell is to execute the below command:</p>
 
-<p>Below is the recording for the whole session: <br />
-<a href="http://www.youtube.com/watch?feature=player_embedded&amp;v=qz2LoVCU8Go " target="_blank"><img src="http://img.youtube.com/vi/qz2LoVCU8Go/0.jpg" alt="Alfresco Tech Talk Live - 85" width="240" height="180" border="10" /></a></p>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">        &amp; 'C:\Program Files\Docker\Docker\DockerCli.exe' -SwitchDaemon</span></code></pre></figure>
 
-<p>During the hackathon I worked on converting Jeff’s <a href="https://github.com/jpotts/alfresco-fivestar-ratings">Five Star Ratings Add-On</a> to run on Alfresco Community 5.0.c using Alfresco SDK 2.0.</p>
+<p><img src="http://0.0.0.0:4000/img/powershell1.png" alt="PowershellCommand" /></p>
 
-<p>I had completed the Repo side work but still left with Share UI part as I am still learning AIKAU. If somebody in the community is willing to fork my project you may find it <a href="https://github.com/sujaypillai/alfresco-fivestar-ratings">here</a> .</p>
+<blockquote>
+  <p><strong><em>There is a running process “com.docker.proxy.exe” which listens on the default named pipe : \.\pipe\docker_engine [for linux containers].</em></strong></p>
+</blockquote>
+
+<blockquote>
+  <p><strong><em>If you switch from Linux to Windows container the Windows Docker engine “dockerd.exe” will be started for you which listens on \.\pipe\docker_engine_windows &amp; the above proxy process redirects to this.</em></strong></p>
+</blockquote>
 
 </div>
 
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="/2018/05/06/docker-tip.html">
-            Switch between Linux and Windows Container on D4W
-            <small>06 May 2018</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -170,6 +125,15 @@
           <a href="/2016/08/04/update-amp-version.html">
             Downgrading AMP version in Alfresco
             <small>04 Aug 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/09/18/aikau-auditing-reporting.html">
+            Aikau Audit Report
+            <small>18 Sep 2015</small>
           </a>
         </h3>
       </li>

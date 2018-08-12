@@ -11,7 +11,7 @@
   
     <title>
       
-        Aikau Audit Report &middot; Sujay Pillai
+        Sujay Pillai - page 2 &middot; Sujay Pillai
       
     </title>
   
@@ -82,10 +82,18 @@
   </div>
 
     <div class="content container">
-      <div class="post">
-  <h1 class="post-title">Aikau Audit Report</h1>
-  <span class="post-date">18 Sep 2015</span>
-  <blockquote>
+      <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2015/09/18/aikau-auditing-reporting.html">
+        Aikau Audit Report
+      </a>
+    </h1>
+
+    <span class="post-date">18 Sep 2015</span>
+
+    <blockquote>
   <p><a href="https://eisenvault.com">EisenVault</a> takes away the hassle of managing documents by storing them in both electronic and physical forms, enabling smart-search and deploying quick retrieval measures. Our innovative cloud-based document management system can be used in multiple industry sectors, and caters to specific requirements of various job roles. Our vision - to be your preferred partner for electronic and physical document management.</p>
 </blockquote>
 
@@ -185,40 +193,183 @@ Below is a screenshot of how it looked -</p>
 <p>** You may find the complete source code for this addon on <a href="https://github.com/vipulswarup/ev-aikau-auditreport">Github</a></p>
 
 
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2015/06/01/alfresco-multi-folder-template.html">
+        Alfresco Multi Folder Template Selection
+      </a>
+    </h1>
+
+    <span class="post-date">01 Jun 2015</span>
+
+    <p>If you look into the Email Form while setting an “Send Email” Action on a folder you would be wondering how we can add new email templates into the list of drop down “Use Template” as shown below -</p>
+
+<p><img src="http://0.0.0.0:4000/img/img6.png" alt="MyImage" /></p>
+
+<p>The only option without any customization is to add your templates into the folder : <strong>Repository &gt; Data Dictionary &gt; Email Templates &gt; Notify Email Templates</strong></p>
+
+<h4 id="how-does-this-work"><em>How does this work?</em></h4>
+<p>Look for the bean ‘ac-email-templates’ in alfresco/WEB-INF/classes/alfresco/action-services-context.xml which has the definition as below -</p>
+
+<noscript><pre>502: Failure
+</pre></noscript>
+<script src="https://gist.github.com/sujaypillai/657379f60bc621e12ba9.js"> </script>
+
+<p>The property <em>searchPath</em> is what restricts it from fetching templates from a single folder.</p>
+
+<h4 id="what-we-need-to-change"><em>What we need to change?</em></h4>
+<p>Let’s bring in our changes so that we can have multiple folders to select the templates from. For this we will be overriding the bean as below -</p>
+
+<noscript><pre>&lt;bean id=&quot;ac-email-templates&quot; class=&quot;org.ootb.repo.action.constraint.FolderContentsParameterConstraint&quot; parent=&quot;action-constraint&quot;&gt;      
+  &lt;property name=&quot;dictionaryService&quot; ref=&quot;dictionaryService&quot;/&gt;
+  &lt;property name=&quot;searchService&quot; ref=&quot;searchService&quot;/&gt;
+  &lt;property name=&quot;nodeService&quot; ref=&quot;nodeService&quot;/&gt;
+  &lt;property name=&quot;namespaceService&quot; ref=&quot;namespaceService&quot; /&gt;
+  &lt;property name=&quot;repository&quot; ref=&quot;repositoryHelper&quot; /&gt;
+  &lt;property name=&quot;cacheAllowableValues&quot; value=&quot;false&quot; /&gt;
+  &lt;property name=&quot;searchPath&quot; &gt;
+    &lt;list&gt;
+        &lt;value&gt;/app:company_home/app:dictionary/app:email_templates/app:notify_email_templates&lt;/value&gt;
+        &lt;value&gt;/app:company_home/app:dictionary/app:ootb/app:ootb_email_templates/cm:notify&lt;/value&gt;
+    &lt;/list&gt;
+  &lt;/property&gt;
+  &lt;property name=&quot;nodeInclusionFilter&quot;&gt;
+    &lt;list&gt;
+        &lt;value&gt;ftl&lt;/value&gt;
+    &lt;/list&gt;
+  &lt;/property&gt;
+&lt;/bean&gt;</pre></noscript>
+<script src="https://gist.github.com/sujaypillai/b49b2d53f10647dedfec.js"> </script>
+
+<ul>
+  <li>The first change is converting the property <em>searchPath</em> from a String literal to a List.</li>
+</ul>
+<noscript><pre>private List&lt;String&gt; searchPath = Collections.emptyList();</pre></noscript>
+<script src="https://gist.github.com/sujaypillai/379da91f20beabf42c04.js"> </script>
+
+<ul>
+  <li>Then update the <em>getAllowableValuesImpl()</em> method so that it parses each folder path to search for what files to be included in the dropdown.</li>
+</ul>
+<noscript><pre>protected Map&lt;String, String&gt; getAllowableValuesImpl() {
+            Map&lt;String, String&gt; result = new HashMap&lt;String, String&gt;(23);
+            for(String path : searchPath){
+                List&lt;NodeRef&gt; nodeRefs = searchService.selectNodes(repository.getRootHome(),path,null,this.namespaceService,false);
+                NodeRef rootFolder = null;
+                if (nodeRefs.size() == 0)
+                {
+                    throw new AlfrescoRuntimeException(&quot;The path &#39;&quot; + searchPath + &quot;&#39; did not return any results.&quot;);
+                }
+                else
+                {
+                    rootFolder = nodeRefs.get(0);
+                }
+                buildMap(result, rootFolder);
+            }
+            Map&lt;String,String&gt; sortedResult = sortByName(result);
+            return sortedResult;
+    }</pre></noscript>
+<script src="https://gist.github.com/sujaypillai/12c8316c9ed923d2ce32.js"> </script>
+
+<ul>
+  <li>I have also added an extra method <em>sortByName</em> so that the values in the dropdown are displayed in sorted order by their name.</li>
+</ul>
+
+<p>Checkout the code for <a href="https://github.com/sujaypillai/alf-tutorials/blob/master/alftutorial-repo/src/main/java/org/ootb/repo/action/constraint/FolderContentsParameterConstraint.java">FolderContentsParameterConstraint</a> for a better understanding of how it works.</p>
+
+<p>I made this whole project as 2 step -</p>
+
+<ol>
+  <li>First is bootstrapping a template under a specified path. <a href="https://github.com/sujaypillai/alf-tutorials/releases/tag/v1.0">v1.0</a></li>
+  <li>Make the templates available for selection under Email Action. <a href="https://github.com/sujaypillai/alf-tutorials/releases/tag/v2.0">v2.0</a></li>
+</ol>
+
+<blockquote>
+  <p>The source code for this project lives <a href="https://github.com/sujaypillai/alf-tutorials">here</a></p>
+</blockquote>
+
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2015/05/06/alfresco-tech-talk-live-85.html">
+        Alfresco Tech Talk Live 85 - Global Virtual Hack-a-thon Project Demos
+      </a>
+    </h1>
+
+    <span class="post-date">06 May 2015</span>
+
+    <p>After the <a href="https://wiki.alfresco.com/wiki/Projects_and_Teams_Global_Virtual_Hack-a-thon_2015">Global Virtual Hack-a-thon 2015</a> which was held on April 17, 2015 I was lucky enough to be on the panel list to demo the project what I worked on. Thanks <a href="https://twitter.com/esplinr">Richard Esplin</a> &amp; <a href="https://twitter.com/OleHejlskov">Ole Hejlskov</a>!!!</p>
+
+<h5 id="the-panel-included">The panel included:</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>Member</th>
+      <th>Project</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Richard Esplin</td>
+      <td>Migrating Alfresco addons hosted on Google to Github</td>
+    </tr>
+    <tr>
+      <td>Ole Hejlskov</td>
+      <td>Aikau Samples / SDK Samples</td>
+    </tr>
+    <tr>
+      <td>Borris Mejias</td>
+      <td>The Outside Agent: Managing multiple Alfresco instances</td>
+    </tr>
+    <tr>
+      <td>Angel Borroy</td>
+      <td>Folder Quotas</td>
+    </tr>
+    <tr>
+      <td>Sujay Pillai</td>
+      <td>Update Jeff’s Five Star Ratings Add-On</td>
+    </tr>
+    <tr>
+      <td>Bindu Wavell</td>
+      <td>Alfresco Yeoman Generator</td>
+    </tr>
+    <tr>
+      <td>Axel Faust</td>
+      <td>Build a ‘CMIS Server’ distribution of Alfresco</td>
+    </tr>
+    <tr>
+      <td>Martin Cosgrave</td>
+      <td>Data visualization</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The Tech Talk Live this month was dedicated to review different projects which were carried out during Hackathon.</p>
+
+<p>Below is the recording for the whole session: <br />
+<a href="http://www.youtube.com/watch?feature=player_embedded&amp;v=qz2LoVCU8Go " target="_blank"><img src="http://img.youtube.com/vi/qz2LoVCU8Go/0.jpg" alt="Alfresco Tech Talk Live - 85" width="240" height="180" border="10" /></a></p>
+
+<p>During the hackathon I worked on converting Jeff’s <a href="https://github.com/jpotts/alfresco-fivestar-ratings">Five Star Ratings Add-On</a> to run on Alfresco Community 5.0.c using Alfresco SDK 2.0.</p>
+
+<p>I had completed the Repo side work but still left with Share UI part as I am still learning AIKAU. If somebody in the community is willing to fork my project you may find it <a href="https://github.com/sujaypillai/alfresco-fivestar-ratings">here</a> .</p>
+
+  </div>
+  
 </div>
 
-<div class="related">
-  <h2>Related Posts</h2>
-  <ul class="related-posts">
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page/3">Older</a>
+  
+  
     
-      <li>
-        <h3>
-          <a href="/2018/05/06/docker-tip.html">
-            Switch between Linux and Windows Container on D4W
-            <small>06 May 2018</small>
-          </a>
-        </h3>
-      </li>
+      <a class="pagination-item newer" href="/">Newer</a>
     
-      <li>
-        <h3>
-          <a href="/2018/04/13/docker-tip.html">
-            Switch ORCHESTRATOR on D4W
-            <small>13 Apr 2018</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2016/08/04/update-amp-version.html">
-            Downgrading AMP version in Alfresco
-            <small>04 Aug 2016</small>
-          </a>
-        </h3>
-      </li>
-    
-  </ul>
+  
 </div>
     </div>
 
