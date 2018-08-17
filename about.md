@@ -1,8 +1,8 @@
 ---
-layout: page
+layout: home
 title: About
-permalink: /about/
 ---
+
 Sujay Pillai is a DevOps Engineer with over 10+years in IT and currently working in Penang, Malaysia. He is the community leader for [Docker Penang Meetup group](https://events.docker.com/penang/) where he frequently talks about Docker technology and recently conducted hands on lab during Docker birthday celebrations. At his workplace he is the pioneer in leading the Docker team and conducts various inhouse training for his team members.
 
 He is also a [Docker Captain](https://www.docker.com/community/captains) a distinction that Docker awards select members of the community that are both experts in their field and are passionate about sharing their Docker knowledge with others. Captains are Docker ambassadors (not employees) and their commitment to sharing their expertise has a huge impact on the Docker community – whether they are blogging, writing books, speaking, running workshops, creating tutorials and classes, offering support in forums, or organizing and contributing to local events – they help make Docker’s mission of democratizing technology possible.
