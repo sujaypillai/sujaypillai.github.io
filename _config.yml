@@ -7,16 +7,17 @@ url: "http://sujayopillai.com" # the base hostname & protocol for your site, e.g
 imagefolder: "/img/"
 twitter_username: sujaypillai
 github_username:  sujaypillai
+google_analytics: "UA-65644221-1"
 
 # Build settings
 markdown: kramdown
-theme: hyde
+theme: jekyll-theme-hyde
 plugins:
   - jekyll-feed
   - jekyll-gist
   - jekyll-paginate-v2
 
-#paginate: 5
+paginate: 5
 timezone: Asia/Kuala_Lumpur
 paginate_path: /page/:num/
 pagination:
