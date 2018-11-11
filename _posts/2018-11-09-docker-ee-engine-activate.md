@@ -236,54 +236,26 @@ Restart docker with 'systemctl restart docker' to complete the activation.
 {% endhighlight %}
 
 
-Ohh... there are some cool features available with this release
-
-### BuildKit
-[BuildKit](https://blog.mobyproject.org/introducing-buildkit-17e056cc5317) is a new build system currently available with the existing Dockerfile builder. To make use of the new build mechanism all you need to do is set the environment variable DOCKER_BUILDKIT. Below is comparison between the normal Dockerfile builder and BuildKit.
+Once you restart the system and execute the below command you  may see the Server as "Docker Engine - Enterprise" while the Client is still on the Community 
 
 {% highlight console %}
-$ docker build -t sujaypillai/vsts-agent .
-Sending build context to Docker daemon   2.56kB
-Step 1/6 : FROM microsoft/vsts-agent:ubuntu-16.04
- ---> 5fb5635c1171
-Step 2/6 : ENV DOCKER_CHANNEL test
- ---> Using cache
- ---> 0cfa5eef1785
-Step 3/6 : ENV DOCKER_VERSION 18.09.0-ce-beta1
- ---> Using cache
- ---> fc3b8cd9f926
-Step 4/6 : RUN set -ex  && curl -fL "https://download.docker.com/linux/static/${DOCKER_CHANNEL}/`uname -m`/docker-${DOCKER_VERSION}.tgz" -o docker.tgz  && tar --extract --file docker.tgz --strip-components 1 --directory /usr/local/bin  && rm docker.tgz  && docker -v
- ---> Using cache
- ---> 6efb1179a5a0
-Step 5/6 : ENV DOCKER_COMPOSE_VERSION 1.22.0
- ---> Using cache
- ---> 79b47efa12fd
-Step 6/6 : RUN set -x  && curl -fSL "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-`uname -s`-`uname -m`" -o /usr/local/bin/docker-compose  && chmod +x /usr/local/bin/docker-compose  && docker-compose -v
- ---> Using cache
- ---> 08b526aafb58
-Successfully built 08b526aafb58
-Successfully tagged sujaypillai/vsts-agent:latest
+$ docker version
+Client:
+ Version:           18.09.0
+ API version:       1.39
+ Go version:        go1.10.4
+ Git commit:        4d60db4
+ Built:             Wed Nov  7 00:48:22 2018
+ OS/Arch:           linux/amd64
+ Experimental:      false
 
-$ export DOCKER_BUILDKIT=1
-
-$ docker build -t sujaypillai/vsts-agent .
-[+] Building 47.7s (7/7) FINISHED                                                                                                                                                   
- => [internal] load build definition from Dockerfile                                                                                                                           0.4s
- => => transferring dockerfile: 696B                                                                                                                                           0.0s
- => [internal] load .dockerignore                                                                                                                                              0.5s
- => => transferring context: 2B                                                                                                                                                0.0s
- => [internal] load metadata for docker.io/microsoft/vsts-agent:ubuntu-16.04                                                                                                   0.0s
- => [1/3] FROM docker.io/microsoft/vsts-agent:ubuntu-16.04                                                                                                                     0.7s
- => => resolve docker.io/microsoft/vsts-agent:ubuntu-16.04                                                                                                                     0.0s
- => [2/3] RUN set -ex  && curl -fL https://download.docker.com/linux/static/test/`uname -m`/docker-18.09.0-ce-beta1.tgz -o docker.tgz  && tar --extract --file docker.tgz --  30.0s
- => [3/3] RUN set -x  && curl -fSL https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose  && chmo  14.4s
- => exporting to image                                                                                                                                                         1.7s
- => => exporting layers                                                                                                                                                        1.4s
- => => writing image sha256:93dd0d4743cd68106c390dbecbc35fdff05798513b0128aa159c9b8669420e14                                                                                   0.0s
- => => naming to docker.io/sujaypillai/vsts-agent   
- {% endhighlight %}
-
-> You can also set the feature option in /etc/docker/daemon.json to enable BuildKit by default: 
-{% highlight json %}
-  { “features”: { “buildkit”: true } }
+Server: Docker Engine - Enterprise
+ Engine:
+  Version:          18.09.0
+  API version:      1.39 (minimum version 1.12)
+  Go version:       go1.10.4
+  Git commit:       33a45cd
+  Built:            Wed Nov  7 00:19:46 2018
+  OS/Arch:          linux/amd64
+  Experimental:     false
 {% endhighlight %}
