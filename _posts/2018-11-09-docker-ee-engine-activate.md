@@ -2,7 +2,7 @@
 layout: post
 title: CE-EE node activate
 ---
-November 4,2018 was a great day for Docker community as we saw new stable release for community edition Docker 18.09 CE afer moving to the new release and support cadence.This will be supported for 7 months with Docker 19.03 CE being the next release in line.
+November 8,2018 was a great day for Docker community as we saw new stable release for community edition Docker 18.09 CE afer moving to the new release and support cadence.This will be supported for 7 months with Docker 19.03 CE being the next release in line.
 
 Along with this being an Enterprise customer we are excited to have [Docker Enterprise 2.1](https://blog.docker.com/2018/11/introducing-docker-enterprise-2-1-advancing-our-container-platform-leadership/) which adds support for Windows Server 1709, 1803 and Windows Server 2019. Read more about this in the [blog](https://blog.docker.com/2018/11/introducing-docker-enterprise-2-1-advancing-our-container-platform-leadership/) from Docker team.
 
@@ -33,8 +33,7 @@ Lets add the stable repository so that we have the latest pacakges to install th
 
 {% highlight console %}
 $ sudo yum-config-manager \
->     --add-repo \
->     https://download.docker.com/linux/centos/docker-ce.repo
+     --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 Failed to set locale, defaulting to C
 Loaded plugins: fastestmirror
 adding repo from: https://download.docker.com/linux/centos/docker-ce.repo
@@ -50,28 +49,28 @@ $ sudo yum list docker-ce --showduplicates
 Failed to set locale, defaulting to C
 Loaded plugins: fastestmirror
 Loading mirror speeds from cached hostfile
-docker-ce-stable                                                                                                                                             | 3.5 kB  00:00:00     
-(1/2): docker-ce-stable/x86_64/updateinfo                                                                                                                    |   55 B  00:00:00     
-(2/2): docker-ce-stable/x86_64/primary_db                                                                                                                    |  19 kB  00:00:00     
+docker-ce-stable                                      | 3.5 kB  00:00:00     
+(1/2): docker-ce-stable/x86_64/updateinfo             |   55 B  00:00:00     
+(2/2): docker-ce-stable/x86_64/primary_db                19 kB  00:00:00     
 Installed Packages
-docker-ce.x86_64                                                              17.12.0.ce-1.el7.centos                                                              @docker-ce-stable
+docker-ce.x86_64        17.12.0.ce-1.el7.centos       @docker-ce-stable
 Available Packages
-docker-ce.x86_64                                                              17.03.0.ce-1.el7.centos                                                              docker-ce-stable 
-docker-ce.x86_64                                                              17.03.1.ce-1.el7.centos                                                              docker-ce-stable 
-docker-ce.x86_64                                                              17.03.2.ce-1.el7.centos                                                              docker-ce-stable 
-docker-ce.x86_64                                                              17.03.3.ce-1.el7                                                                     docker-ce-stable 
-docker-ce.x86_64                                                              17.06.0.ce-1.el7.centos                                                              docker-ce-stable 
-docker-ce.x86_64                                                              17.06.1.ce-1.el7.centos                                                              docker-ce-stable 
-docker-ce.x86_64                                                              17.06.2.ce-1.el7.centos                                                              docker-ce-stable 
-docker-ce.x86_64                                                              17.09.0.ce-1.el7.centos                                                              docker-ce-stable 
-docker-ce.x86_64                                                              17.09.1.ce-1.el7.centos                                                              docker-ce-stable 
-docker-ce.x86_64                                                              17.12.0.ce-1.el7.centos                                                              docker-ce-stable 
-docker-ce.x86_64                                                              17.12.1.ce-1.el7.centos                                                              docker-ce-stable 
-docker-ce.x86_64                                                              18.03.0.ce-1.el7.centos                                                              docker-ce-stable 
-docker-ce.x86_64                                                              18.03.1.ce-1.el7.centos                                                              docker-ce-stable 
-docker-ce.x86_64                                                              18.06.0.ce-3.el7                                                                     docker-ce-stable 
-docker-ce.x86_64                                                              18.06.1.ce-3.el7                                                                     docker-ce-stable 
-docker-ce.x86_64                                                              3:18.09.0-3.el7                                                                      docker-ce-stable 
+docker-ce.x86_64        17.03.0.ce-1.el7.centos       docker-ce-stable 
+docker-ce.x86_64        17.03.1.ce-1.el7.centos       docker-ce-stable 
+docker-ce.x86_64        17.03.2.ce-1.el7.centos       docker-ce-stable 
+docker-ce.x86_64        17.03.3.ce-1.el7              docker-ce-stable 
+docker-ce.x86_64        17.06.0.ce-1.el7.centos       docker-ce-stable 
+docker-ce.x86_64        17.06.1.ce-1.el7.centos       docker-ce-stable 
+docker-ce.x86_64        17.06.2.ce-1.el7.centos       docker-ce-stable 
+docker-ce.x86_64        17.09.0.ce-1.el7.centos       docker-ce-stable 
+docker-ce.x86_64        17.09.1.ce-1.el7.centos       docker-ce-stable 
+docker-ce.x86_64        17.12.0.ce-1.el7.centos       docker-ce-stable 
+docker-ce.x86_64        17.12.1.ce-1.el7.centos       docker-ce-stable 
+docker-ce.x86_64        18.03.0.ce-1.el7.centos       docker-ce-stable 
+docker-ce.x86_64        18.03.1.ce-1.el7.centos       docker-ce-stable 
+docker-ce.x86_64        18.06.0.ce-3.el7              docker-ce-stable 
+docker-ce.x86_64        18.06.1.ce-3.el7              docker-ce-stable 
+docker-ce.x86_64        3:18.09.0-3.el7               docker-ce-stable 
 {% endhighlight %}
 
 The standard way of installing a specific version is `$ sudo yum install <FULLY-QUALIFIED-PACKAGE-NAME>`
@@ -286,11 +285,5 @@ $ docker build -t sujaypillai/vsts-agent .
 
 > You can also set the feature option in /etc/docker/daemon.json to enable BuildKit by default: 
 {% highlight json %}
-{       
-        “features”:
-        {
-                “buildkit”: true
-        }
-}
+  { “features”: { “buildkit”: true } }
 {% endhighlight %}
-
