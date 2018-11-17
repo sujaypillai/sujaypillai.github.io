@@ -17,7 +17,7 @@ plugins:
   - jekyll-gist
   - jekyll-paginate-v2
 
-paginate: 5
+#paginate: 5
 timezone: Asia/Kuala_Lumpur
 paginate_path: /page/:num/
 pagination:
