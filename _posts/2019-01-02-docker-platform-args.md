@@ -34,7 +34,7 @@ These arguments are defined in the global scope so are not automatically availab
 
 Consider the below `Dockerfile` where we have all the above predefined ARG's redefined
 
-{% gist sujaypillai/b49b2d53f10647dedfec %}74d15e0d690a265a1b705cf3b26c6082
+{% gist sujaypillai/74d15e0d690a265a1b705cf3b26c6082 %}
 
 I carried out this build on a RaspberryPi to show all the values of above ARG's
 ![PreDefinedARG]({{ site.baseurl }}/img/predefinedargs.png)
