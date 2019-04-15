@@ -1,7 +1,7 @@
 title: Sujay Pillai
 email: sujayopillai@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  DockerCaptain, Sr. DevOps Engineer @Jabil
+  DockerCaptain, Sr. DevOps Engineer
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "http://sujayopillai.com" # the base hostname & protocol for your site, e.g. http://example.com
 imagefolder: "/img/"
